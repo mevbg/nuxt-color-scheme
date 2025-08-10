@@ -1,0 +1,81 @@
+{
+  "name": "@mevbg/nuxt-color-scheme",
+  "title": "Nuxt Color Scheme Module",
+  "version": "0.0.0",
+  "description": "Mev’s personal Nuxt color scheme module.",
+  "keywords": [
+    "nuxt color scheme",
+    "color scheme module",
+    "nuxt module",
+    "color scheme",
+    "color theme",
+    "module",
+    "mevbg",
+    "personal"
+  ],
+  "homepage": "https://github.com/mevbg/nuxt-color-scheme#readme",
+  "bugs": {
+    "url": "https://github.com/mevbg/nuxt-color-scheme/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mevbg/nuxt-color-scheme.git"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Martin Metodiev • Mev",
+    "email": "martin@mev.bg",
+    "url": "https://mev.bg"
+  },
+  "type": "module",
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "npm run dev:prepare && nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22.x",
+    "npm": ">=10.x"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^4.0.3"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^2.6.2",
+    "@nuxt/eslint-config": "^1.8.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.3",
+    "@nuxt/test-utils": "^3.19.2",
+    "@types/node": "latest",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.33.0",
+    "nuxt": "^4.0.3",
+    "prettier-plugin-organize-imports": "^4.2.0",
+    "typescript": "~5.9.2",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.0.5"
+  }
+}
