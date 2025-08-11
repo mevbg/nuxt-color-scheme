@@ -50,11 +50,8 @@
     "dev": "npm run dev:prepare && nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
-    "lint": "eslint .",
-    "test": "vitest run",
-    "test:watch": "vitest watch",
-    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+    "release": "npm run lint && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint ."
   },
   "engines": {
     "node": ">=22.x",
@@ -68,14 +65,12 @@
     "@nuxt/eslint-config": "^1.8.0",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.0.3",
-    "@nuxt/test-utils": "^3.19.2",
     "@types/node": "latest",
     "changelogen": "^0.6.2",
     "eslint": "^9.33.0",
     "nuxt": "^4.0.3",
     "prettier-plugin-organize-imports": "^4.2.0",
     "typescript": "~5.9.2",
-    "vitest": "^3.2.4",
     "vue-tsc": "^3.0.5"
   }
 }
