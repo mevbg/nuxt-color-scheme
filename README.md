@@ -140,7 +140,7 @@ At least for now. 😋
 
 [npm-version-src]: https://img.shields.io/npm/v/%40mevbg%2Fnuxt-color-scheme/latest.svg?style=flat&colorA=020420&colorB=00DC82
 [npm-version-href]: https://npmjs.com/package/@mevbg/nuxt-color-scheme
-[license-src]: https://img.shields.io/npm/l/%40mevbg%2Fnuxt-color-scheme.svg?style=flat&colorA=020420&colorB=00DC82
+[license-src]: https://img.shields.io/npm/l/@mevbg/nuxt-color-scheme.svg?style=flat&colorA=020420&colorB=00DC82
 [license-href]: https://github.com/mevbg/nuxt-color-scheme/blob/main/LICENSE
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
 [nuxt-href]: https://nuxt.com
