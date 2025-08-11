@@ -62,6 +62,7 @@ const availableModes = computed(() => {
 export function useColorScheme() {
   const config = useRuntimeConfig();
   defaultColorSchemeMode.value = (config?.public?.colorScheme as any)?.default as ColorSchemeMode;
+  platformSystemSupport.value = (config?.public?.colorScheme as any)?.systemScheme as boolean;
 
   return {
     // State properties

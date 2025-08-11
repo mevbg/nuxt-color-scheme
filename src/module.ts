@@ -13,7 +13,8 @@ export default defineNuxtModule<ModuleOptions>({
 
   // Default configuration options of the Nuxt module
   defaults: {
-    default: DEFAULT_COLOR_SCHEME
+    default: DEFAULT_COLOR_SCHEME,
+    systemScheme: true
   },
 
   async setup(options, nuxt) {
