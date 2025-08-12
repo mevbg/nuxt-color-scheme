@@ -10,5 +10,15 @@ export default {
   bracketSpacing: true,
   endOfLine: 'lf',
   htmlWhitespaceSensitivity: 'strict',
-  vueIndentScriptAndStyle: true
+  vueIndentScriptAndStyle: true,
+  // Override for Vue files
+  overrides: [
+    {
+      files: '*.vue',
+      options: {
+        printWidth: 100,
+        singleAttributePerLine: false
+      }
+    }
+  ]
 };

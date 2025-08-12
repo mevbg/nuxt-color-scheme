@@ -1,5 +1,7 @@
 // @ts-check
 import { createConfigForNuxt } from '@nuxt/eslint-config/flat';
+import prettierConfig from 'eslint-config-prettier';
+import prettier from 'eslint-plugin-prettier';
 
 // Run `npx @eslint/config-inspector` to inspect the resolved config interactively
 export default createConfigForNuxt({
@@ -13,15 +15,25 @@ export default createConfigForNuxt({
     src: ['./playground']
   }
 }).append(
-  // Override stylistic rules to match Prettier config
+  // Add Prettier plugin and config
   {
+    plugins: {
+      prettier
+    },
     rules: {
-      semi: ['error', 'always'],
-      'comma-dangle': ['error', 'never'],
-      '@stylistic/semi': ['error', 'always'],
-      '@stylistic/comma-dangle': ['error', 'never'],
+      'prettier/prettier': 'error',
+      // Disable conflicting rules
+      'vue/html-self-closing': 'off',
+      'vue/max-attributes-per-line': 'off',
+      'vue/first-attribute-linebreak': 'off',
+      'vue/html-closing-bracket-newline': 'off',
+      'vue/html-indent': 'off',
       'vue/singleline-html-element-content-newline': 'off',
-      '@stylistic/indent': ['error', 2]
+      '@stylistic/indent': 'off',
+      '@stylistic/semi': 'off',
+      '@stylistic/comma-dangle': 'off'
     }
-  }
+  },
+  // Disable all conflicting rules from other configs
+  prettierConfig
 );
