@@ -1,4 +1,5 @@
 import { addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
+import type { Nuxt } from 'nuxt/schema';
 import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
 import type { ColorSchemeOptions } from './types';
 
@@ -17,7 +18,7 @@ export default defineNuxtModule<ColorSchemeOptions>({
     systemScheme: true
   },
 
-  async setup(options, nuxt) {
+  async setup(options: ColorSchemeOptions, nuxt: Nuxt) {
     // Add the configuration to the runtime config
     nuxt.options.runtimeConfig.public.colorScheme = {
       ...options
