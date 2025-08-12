@@ -16,7 +16,7 @@ export type ColorScheme = {
   className: string;
 };
 
-export interface ModuleOptions {
-  default: ColorSchemeKey;
-  systemScheme: boolean;
+export interface ColorSchemeOptions {
+  default?: ColorSchemeKey;
+  systemScheme?: boolean;
 }

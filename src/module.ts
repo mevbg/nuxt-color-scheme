@@ -1,11 +1,11 @@
 import { addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
-import type { ModuleOptions } from './types';
+import type { ColorSchemeOptions } from './types';
 
 // Re-export types for TypeScript support
 export * from './types';
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule<ColorSchemeOptions>({
   meta: {
     name: '@mevbg/nuxt-color-scheme',
     configKey: 'colorScheme'
