@@ -1,7 +1,7 @@
 {
   "name": "@mevbg/nuxt-color-scheme",
   "title": "Mev’s Nuxt Color Scheme",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Mev’s personal Nuxt color scheme module.",
   "keywords": [
     "nuxt color scheme",
