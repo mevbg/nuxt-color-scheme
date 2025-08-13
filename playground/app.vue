@@ -2,43 +2,45 @@
   <div :style="{ textAlign: 'center' }">
     <h1>Mev’s Nuxt Color Scheme</h1>
 
-    <div
-      :style="{
-        display: 'inline-flex',
-        justifyContent: 'left',
-        gap: '20px'
-      }"
-    >
-      <div v-for="(btn, index) in colorSchemeModes" :key="index" @click="setColorSchemeMode(btn)">
-        <div
-          :style="{
-            display: 'inline-flex',
-            justifyContent: 'left',
-            gap: '4px',
-            cursor: 'pointer'
-          }"
-        >
-          <input
-            :id="btn"
-            v-model="colorSchemeMode"
-            name="colorSchemeMode"
-            type="radio"
-            :value="btn"
+    <ClientOnly>
+      <div
+        :style="{
+          display: 'inline-flex',
+          justifyContent: 'left',
+          gap: '20px'
+        }"
+      >
+        <div v-for="(btn, index) in colorSchemeModes" :key="index" @click="setColorSchemeMode(btn)">
+          <div
             :style="{
-              cursor: 'pointer'
-            }"
-          />
-          <label
-            :for="btn"
-            :style="{
+              display: 'inline-flex',
+              justifyContent: 'left',
+              gap: '4px',
               cursor: 'pointer'
             }"
           >
-            {{ btn.charAt(0).toUpperCase() + btn.slice(1) }}
-          </label>
+            <input
+              :id="btn"
+              v-model="colorSchemeMode"
+              name="colorSchemeMode"
+              type="radio"
+              :value="btn"
+              :style="{
+                cursor: 'pointer'
+              }"
+            />
+            <label
+              :for="btn"
+              :style="{
+                cursor: 'pointer'
+              }"
+            >
+              {{ btn.charAt(0).toUpperCase() + btn.slice(1) }}
+            </label>
+          </div>
         </div>
       </div>
-    </div>
+    </ClientOnly>
   </div>
 </template>
 
