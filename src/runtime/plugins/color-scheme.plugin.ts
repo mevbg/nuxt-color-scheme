@@ -51,10 +51,10 @@ export default defineNuxtPlugin(() => {
   currentMode.value = (cookieColorScheme.value ||
     (systemSupport.value ? 'system' : primary.value)) as ColorSchemeMode;
 
-  if (import.meta.client) {
+  if (serverSideSystemScheme.value || import.meta.client) {
     // This should be stored in a const because each time it's a different instance
     //  and the removal of the event listener doesn't work
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    const mql = import.meta.client ? window.matchMedia('(prefers-color-scheme: dark)') : null;
     // Watch for changes in the current mode
     // and update the cookie and class name accordingly
     watch(
