@@ -51,31 +51,33 @@ export default defineNuxtPlugin(() => {
   currentMode.value = (cookieColorScheme.value ||
     (systemSupport.value ? 'system' : primary.value)) as ColorSchemeMode;
 
-  // This should be stored in a const because each time it's a different instance
-  //  and the removal of the event listener doesn't work
-  const mql = import.meta.client ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-  // Watch for changes in the current mode
-  // and update the cookie and class name accordingly
-  watch(
-    () => currentMode.value,
-    (newMode, oldMode) => {
-      cookieColorScheme.value =
-        (!systemSupport.value && newMode) || newMode !== 'system' ? newMode : undefined;
+  if (import.meta.client) {
+    // This should be stored in a const because each time it's a different instance
+    //  and the removal of the event listener doesn't work
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    // Watch for changes in the current mode
+    // and update the cookie and class name accordingly
+    watch(
+      () => currentMode.value,
+      (newMode, oldMode) => {
+        cookieColorScheme.value =
+          (!systemSupport.value && newMode) || newMode !== 'system' ? newMode : undefined;
 
-      // Resolve the initial class name
-      // and set it to className in the store
-      resolveClassName();
+        // Resolve the initial class name
+        // and set it to className in the store
+        resolveClassName();
 
-      // Add or remove the event listener based on the changed mode
-      if (import.meta.client && mql) {
-        if (newMode === 'system') {
-          mql.addEventListener('change', resolveClassName);
+        // Add or remove the event listener based on the changed mode
+        if (mql) {
+          if (newMode === 'system') {
+            mql.addEventListener('change', resolveClassName);
+          }
+          if (oldMode === 'system') {
+            mql.removeEventListener('change', resolveClassName);
+          }
         }
-        if (oldMode === 'system') {
-          mql.removeEventListener('change', resolveClassName);
-        }
-      }
-    },
-    { immediate: true }
-  );
+      },
+      { immediate: true }
+    );
+  }
 });
