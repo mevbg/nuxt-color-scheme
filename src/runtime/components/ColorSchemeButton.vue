@@ -35,6 +35,8 @@
 </template>
 
 <script setup>
+  import { useColorScheme } from '#imports';
+
   const { currentColorScheme } = useColorScheme();
 
   defineProps({
