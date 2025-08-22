@@ -1,6 +1,6 @@
 import { defineNuxtPlugin, useCookie, useRequestHeaders } from '#app';
-import { ref, type Ref, watch } from 'vue';
-import type { ColorSchemeMode } from '../composables/color-scheme.composable';
+import { type Ref, watch } from 'vue';
+import type { ColorSchemeKey, ColorSchemeMode } from '../composables/color-scheme.composable';
 import { useColorScheme } from '../composables/color-scheme.composable';
 
 export default defineNuxtPlugin(() => {
@@ -8,8 +8,10 @@ export default defineNuxtPlugin(() => {
   const {
     primary,
     secondary,
+    systemColorScheme,
     serverSideSystemScheme,
     clientSideSystemScheme,
+    currentColorScheme,
     currentMode,
     className,
     systemSupport
@@ -22,14 +24,13 @@ export default defineNuxtPlugin(() => {
   const { 'sec-ch-prefers-color-scheme': secChPrefersColorScheme } = useRequestHeaders([
     'sec-ch-prefers-color-scheme'
   ]);
-  const systemColorScheme = ref<string | undefined>(secChPrefersColorScheme);
 
   // Returns class name based on cookie and system support
-  const resolveClassName = () => {
+  const resolveData = () => {
     const secondaryMatchesSystemColorScheme =
       systemSupport.value &&
-      (import.meta.server && systemColorScheme.value
-        ? secondary.value === systemColorScheme.value
+      (import.meta.server && secChPrefersColorScheme
+        ? secondary.value === secChPrefersColorScheme
         : import.meta.client &&
           window?.matchMedia(`(prefers-color-scheme: ${secondary.value})`).matches);
 
@@ -38,11 +39,21 @@ export default defineNuxtPlugin(() => {
       (!cookieColorScheme.value && secondaryMatchesSystemColorScheme)
         ? secondary.value
         : '';
+
+    systemColorScheme.value =
+      (import.meta.server && (secChPrefersColorScheme as ColorSchemeKey)) ||
+      ((import.meta.client && window?.matchMedia(`(prefers-color-scheme: ${primary.value})`).matches
+        ? primary.value
+        : secondary.value) as ColorSchemeKey);
+
+    currentColorScheme.value = (cookieColorScheme.value ||
+      systemColorScheme.value ||
+      primary.value) as ColorSchemeKey;
   };
 
   // Resolve the flags for system color scheme support
   // in both server-side and client-side
-  serverSideSystemScheme.value = import.meta.server && !!systemColorScheme.value;
+  serverSideSystemScheme.value = import.meta.server && !!secChPrefersColorScheme;
   clientSideSystemScheme.value =
     import.meta.client && window.matchMedia('(prefers-color-scheme)').media !== 'not all';
 
@@ -60,20 +71,20 @@ export default defineNuxtPlugin(() => {
     watch(
       () => currentMode.value,
       (newMode, oldMode) => {
+        // Update cookieColorScheme based on the new mode
         cookieColorScheme.value =
           (!systemSupport.value && newMode) || newMode !== 'system' ? newMode : undefined;
 
-        // Resolve the initial class name
-        // and set it to className in the store
-        resolveClassName();
+        // Update className, systemColorScheme and currentColorScheme
+        resolveData();
 
         // Add or remove the event listener based on the changed mode
         if (mql) {
           if (newMode === 'system') {
-            mql.addEventListener('change', resolveClassName);
+            mql.addEventListener('change', resolveData);
           }
           if (oldMode === 'system') {
-            mql.removeEventListener('change', resolveClassName);
+            mql.removeEventListener('change', resolveData);
           }
         }
       },

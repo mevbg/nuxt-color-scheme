@@ -20,6 +20,7 @@ export type ColorScheme = {
   className: string;
 };
 
+const defaultColorScheme = ref<ColorSchemeKey>(DEFAULT_COLOR_SCHEME);
 const defaultColorSchemeMode = ref<ColorSchemeMode>(DEFAULT_COLOR_SCHEME);
 const defaultColorSchemeClassName: string = '';
 const defaultPrimary = computed(() => defaultColorSchemeMode.value);
@@ -30,6 +31,8 @@ const primary = computed(() => defaultPrimary.value as ColorSchemeKey);
 const secondary = computed(() => defaultSecondary.value);
 const serverSideSystemScheme = ref<boolean | null>(null);
 const clientSideSystemScheme = ref<boolean | null>(null);
+const systemColorScheme = ref<ColorSchemeKey | undefined>(undefined);
+const currentColorScheme = ref<ColorSchemeKey>(defaultColorScheme.value);
 const currentMode = ref<ColorSchemeMode>(defaultColorSchemeMode.value);
 const className = ref<string>(defaultColorSchemeClassName);
 const platformSystemSupport = ref<boolean>(true);
@@ -45,9 +48,7 @@ const clientSystemSupport = computed(() => {
 });
 
 const systemSupport = computed(() => {
-  return (
-    platformSystemSupport.value && (serverSideSystemScheme.value || clientSideSystemScheme.value)
-  );
+  return platformSystemSupport.value && clientSystemSupport.value;
 });
 
 const availableModes = computed(() => {
@@ -68,8 +69,10 @@ export function useColorScheme() {
     // State properties
     primary,
     secondary,
+    systemColorScheme,
     serverSideSystemScheme,
     clientSideSystemScheme,
+    currentColorScheme,
     currentMode,
     className,
     platformSystemSupport,
