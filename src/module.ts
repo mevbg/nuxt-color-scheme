@@ -1,4 +1,4 @@
-import { addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
+import { addComponent, addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { Nuxt } from 'nuxt/schema';
 import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
 import type { ColorSchemeOptions } from './types';
@@ -26,6 +26,12 @@ export default defineNuxtModule<ColorSchemeOptions>({
 
     // Create the path resolver
     const resolver = createResolver(import.meta.url);
+
+    // Add the components
+    addComponent({
+      name: 'ColorSchemeButton',
+      filePath: resolver.resolve('./runtime/components/ColorSchemeButton.vue')
+    });
 
     // Import the composable
     addImports([

@@ -5,6 +5,15 @@
     <ClientOnly>
       <div
         :style="{
+          marginBottom: '1rem'
+        }"
+      >
+        <ColorSchemeButton @click="handleColorSchemeClick" />
+      </div>
+
+      <div
+        v-if="colorSchemeControllers"
+        :style="{
           display: 'inline-flex',
           justifyContent: 'left',
           gap: '20px'
@@ -44,7 +53,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+  import ColorSchemeButton from '../src/runtime/components/ColorSchemeButton.vue';
+
   const {
     availableModes: colorSchemeModes,
     currentMode: colorSchemeMode,
@@ -58,6 +69,12 @@
       lang: 'bg-BG'
     }
   });
+
+  const colorSchemeControllers = ref<boolean>(false);
+
+  const handleColorSchemeClick = () => {
+    colorSchemeControllers.value = !colorSchemeControllers.value;
+  };
 </script>
 
 <style>
