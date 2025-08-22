@@ -27,12 +27,6 @@ export default defineNuxtModule<ColorSchemeOptions>({
     // Create the path resolver
     const resolver = createResolver(import.meta.url);
 
-    // Add the components
-    addComponent({
-      name: 'ColorSchemeButton',
-      filePath: resolver.resolve('./runtime/components/ColorSchemeButton.vue')
-    });
-
     // Import the composable
     addImports([
       {
@@ -44,6 +38,12 @@ export default defineNuxtModule<ColorSchemeOptions>({
     // Do not add the extension since the `.ts` will be
     // transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugins/color-scheme.plugin'));
+
+    // Add the components
+    addComponent({
+      name: 'ColorSchemeButton',
+      filePath: resolver.resolve('./runtime/components/ColorSchemeButton.vue')
+    });
 
     // Add the server plugin for the headers to the Nitro config
     nuxt.hooks.hook('nitro:config', (config: any) => {
