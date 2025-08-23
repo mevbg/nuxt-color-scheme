@@ -1,8 +1,8 @@
 import { useRuntimeConfig } from '#app';
 import { computed, ref } from 'vue';
-import type { ColorSchemeKey, ColorSchemeMode, ColorSchemeOptions } from '../../types';
-import { possibleColorSchemeModes } from '../../types';
 import { DEFAULT_PRIMARY_COLOR_SCHEME } from '../defaults';
+import type { ColorSchemeKey, ColorSchemeMode, ColorSchemeOptions } from '../types';
+import { possibleColorSchemeModes } from '../types';
 
 // Color scheme definitions
 const primary = ref<ColorSchemeKey>(DEFAULT_PRIMARY_COLOR_SCHEME);
