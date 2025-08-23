@@ -1,20 +1,25 @@
 import { defineNuxtPlugin, useCookie, useRequestHeaders } from '#app';
 import { type Ref, watch } from 'vue';
-import type { ColorSchemeKey, ColorSchemeMode } from '../composables/color-scheme.composable';
+import type { ColorSchemeKey, ColorSchemeMode } from '../../types';
 import { useColorScheme } from '../composables/color-scheme.composable';
 
 export default defineNuxtPlugin(() => {
   // Get the needed stuff from the Color Scheme composable
   const {
+    // Color scheme definitions
     primary,
     secondary,
-    systemColorScheme,
+
+    // System-color-scheme-related data
     serverSideSystemScheme,
     clientSideSystemScheme,
+    systemSupport,
+    systemColorScheme,
+
+    // Current states
     currentColorScheme,
     currentMode,
-    className,
-    systemSupport
+    currentClassName
   } = useColorScheme();
 
   // Get cookie (if such)
@@ -34,7 +39,7 @@ export default defineNuxtPlugin(() => {
         : import.meta.client &&
           window?.matchMedia(`(prefers-color-scheme: ${secondary.value})`).matches);
 
-    className.value =
+    currentClassName.value =
       cookieColorScheme.value === secondary.value ||
       (!cookieColorScheme.value && secondaryMatchesSystemColorScheme)
         ? secondary.value
@@ -75,7 +80,7 @@ export default defineNuxtPlugin(() => {
         cookieColorScheme.value =
           (!systemSupport.value && newMode) || newMode !== 'system' ? newMode : undefined;
 
-        // Update className, systemColorScheme and currentColorScheme
+        // Update currentClassName, systemColorScheme and currentColorScheme
         resolveData();
 
         // Add or remove the event listener based on the changed mode

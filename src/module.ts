@@ -1,6 +1,6 @@
 import { addComponent, addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { Nuxt } from 'nuxt/schema';
-import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
+import { DEFAULT_PRIMARY_COLOR_SCHEME } from './runtime/defaults';
 import type { ColorSchemeOptions } from './types';
 
 // Re-export types for TypeScript support
@@ -14,7 +14,7 @@ export default defineNuxtModule<ColorSchemeOptions>({
 
   // Default configuration options of the Nuxt module
   defaults: {
-    default: DEFAULT_COLOR_SCHEME,
+    primaryScheme: DEFAULT_PRIMARY_COLOR_SCHEME,
     systemScheme: true
   },
 

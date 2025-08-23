@@ -1,17 +1,15 @@
 {
   "name": "@mevbg/nuxt-color-scheme",
-  "title": "Mev’s Nuxt Color Scheme",
+  "title": "Nuxt Color Scheme",
   "version": "1.1.3",
-  "description": "Mev’s personal Nuxt color scheme module.",
+  "description": "Solution for managing color schemes in Nuxt applications.",
   "keywords": [
     "nuxt color scheme",
     "color scheme module",
     "nuxt module",
     "color scheme",
     "color theme",
-    "module",
-    "mevbg",
-    "personal"
+    "module"
   ],
   "homepage": "https://github.com/mevbg/nuxt-color-scheme#readme",
   "bugs": {
@@ -51,11 +49,10 @@
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "playground:generate": "nuxi generate playground",
-    "release": "npm run lint && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
-    "lint": "eslint .",
+    "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "engines": {
     "node": ">=22.x",

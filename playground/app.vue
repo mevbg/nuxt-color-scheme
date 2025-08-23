@@ -36,7 +36,7 @@
   const {
     availableModes: colorSchemeModes,
     currentMode: colorSchemeMode,
-    className: colorSchemeClassName,
+    currentClassName: colorSchemeClassName,
     setColorSchemeMode
   } = useColorScheme();
 
@@ -163,7 +163,7 @@
 
   .controllers {
     aspect-ratio: 1;
-    width: 80rem;
+    width: 90rem;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -171,7 +171,7 @@
     align-items: center;
     gap: 5rem;
     background-color: rgba(var(--color-background), 0.8);
-    border-radius: 1rem;
+    border-radius: 50%;
     box-shadow: 0 0 100rem -8rem rgba(var(--color-text), 0.25);
   }
 

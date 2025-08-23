@@ -1,91 +1,72 @@
 import { useRuntimeConfig } from '#app';
 import { computed, ref } from 'vue';
-import type { ColorSchemeOptions } from '../../types';
-import { DEFAULT_COLOR_SCHEME } from '../defaults';
+import type { ColorSchemeKey, ColorSchemeMode, ColorSchemeOptions } from '../../types';
+import { possibleColorSchemeModes } from '../../types';
+import { DEFAULT_PRIMARY_COLOR_SCHEME } from '../defaults';
 
-export const colorSchemes = ['light', 'dark'] as const;
-// This is the list of possible color scheme modes, including the system mode
-export const possibleColorSchemeModes = ['system', ...colorSchemes] as const;
+// Color scheme definitions
+const primary = ref<ColorSchemeKey>(DEFAULT_PRIMARY_COLOR_SCHEME);
+const secondary = computed<ColorSchemeKey>(() => (primary.value === 'light' ? 'dark' : 'light'));
 
-export type ColorSchemeKey = (typeof colorSchemes)[number];
-export type ColorSchemeMode = (typeof possibleColorSchemeModes)[number];
-export type ColorScheme = {
-  primary: ColorSchemeKey;
-  secondary: ColorSchemeKey;
-
-  serverSideSystemScheme: boolean | null;
-  clientSideSystemScheme: boolean | null;
-
-  currentMode: ColorSchemeMode;
-  platformSystemSupport: boolean;
-  className: string;
-};
-
-const defaultColorScheme = ref<ColorSchemeKey>(DEFAULT_COLOR_SCHEME);
-const defaultColorSchemeMode = ref<ColorSchemeMode>(DEFAULT_COLOR_SCHEME);
-const defaultColorSchemeClassName: string = '';
-const defaultPrimary = computed(() => defaultColorSchemeMode.value);
-const defaultSecondary = computed(() => (defaultPrimary.value === 'light' ? 'dark' : 'light'));
-
-// State properties using ref()
-const primary = computed(() => defaultPrimary.value as ColorSchemeKey);
-const secondary = computed(() => defaultSecondary.value);
+// System-color-scheme-related data
 const serverSideSystemScheme = ref<boolean | null>(null);
 const clientSideSystemScheme = ref<boolean | null>(null);
+const clientSystemSupport = computed(
+  () => serverSideSystemScheme.value || clientSideSystemScheme.value
+);
+const appSystemSupport = ref<boolean>(true);
+const systemSupport = computed(() => appSystemSupport.value && clientSystemSupport.value);
 const systemColorScheme = ref<ColorSchemeKey | undefined>(undefined);
-const currentColorScheme = ref<ColorSchemeKey>(defaultColorScheme.value);
-const currentMode = ref<ColorSchemeMode>(defaultColorSchemeMode.value);
-const className = ref<string>(defaultColorSchemeClassName);
-const platformSystemSupport = ref<boolean>(true);
 
-// Actions using functions
+// Current states
+const currentColorScheme = ref<ColorSchemeKey>(primary.value);
+const currentMode = ref<ColorSchemeMode>(primary.value);
+const currentClassName = ref<string>('');
+const availableModes = computed(() =>
+  systemSupport.value
+    ? possibleColorSchemeModes
+    : possibleColorSchemeModes.filter((mode) => mode !== 'system')
+);
+
+// Function that sets the color scheme mode
 function setColorSchemeMode(mode: ColorSchemeMode) {
   currentMode.value = mode;
 }
 
-// Getters using computed()
-const clientSystemSupport = computed(() => {
-  return serverSideSystemScheme.value || clientSideSystemScheme.value;
-});
-
-const systemSupport = computed(() => {
-  return platformSystemSupport.value && clientSystemSupport.value;
-});
-
-const availableModes = computed(() => {
-  const modes = [...possibleColorSchemeModes];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return platformSystemSupport.value &&
-    (serverSideSystemScheme.value || clientSideSystemScheme.value)
-    ? modes
-    : modes.filter((mode) => mode !== 'system');
-});
-
+// Composable
 export function useColorScheme() {
+  // Get the runtime config
   const config = useRuntimeConfig();
-  defaultColorSchemeMode.value = (config?.public?.colorScheme as ColorSchemeOptions)
-    ?.default as ColorSchemeMode;
-  platformSystemSupport.value = (config?.public?.colorScheme as ColorSchemeOptions)
+
+  // Set the primary color scheme
+  primary.value = (config?.public?.colorScheme as ColorSchemeOptions)
+    ?.primaryScheme as ColorSchemeKey;
+
+  // Set the platform system support
+  appSystemSupport.value = (config?.public?.colorScheme as ColorSchemeOptions)
     ?.systemScheme as boolean;
 
+  // Expose data and methods
   return {
-    // State properties
+    // Color scheme definitions
     primary,
     secondary,
-    systemColorScheme,
+
+    // System-color-scheme-related data
     serverSideSystemScheme,
     clientSideSystemScheme,
+    clientSystemSupport,
+    appSystemSupport,
+    systemSupport,
+    systemColorScheme,
+
+    // Current states
     currentColorScheme,
     currentMode,
-    className,
-    platformSystemSupport,
+    currentClassName,
+    availableModes,
 
-    // Actions
-    setColorSchemeMode,
-
-    // Getters
-    clientSystemSupport,
-    systemSupport,
-    availableModes
+    // Methods
+    setColorSchemeMode
   };
 }
