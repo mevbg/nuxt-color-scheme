@@ -1,12 +1,5 @@
 <template>
-  <div
-    :style="{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100dvh'
-    }"
-  >
+  <div class="page">
     <ClientOnly>
       <div>
         <ColorSchemeButton class="icon" @click="openModal" />
@@ -127,6 +120,13 @@
     margin: 0;
     background-color: rgba(var(--color-background), 0.9);
     color: rgba(var(--color-text), 1);
+  }
+
+  .page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
   }
 
   .icon {
