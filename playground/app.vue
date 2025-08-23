@@ -158,7 +158,7 @@
 
   .modal::backdrop {
     background-color: transparent;
-    backdrop-filter: blur(2rem);
+    backdrop-filter: blur(5rem);
   }
 
   .controllers {
@@ -170,9 +170,7 @@
     justify-content: center;
     align-items: center;
     gap: 5rem;
-    background-color: rgba(var(--color-background), 0.8);
     border-radius: 50%;
-    box-shadow: 0 0 100rem -8rem rgba(var(--color-text), 0.25);
   }
 
   .button {
@@ -182,7 +180,7 @@
     appearance: none;
     cursor: pointer;
     width: 40rem;
-    background-color: rgba(var(--color-text), 1);
+    background-color: rgba(var(--color-text), 0.5);
     color: rgba(var(--color-background), 1);
     padding: 4rem;
     text-transform: uppercase;
@@ -195,11 +193,11 @@
     transition:
       scale 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out,
-      outline-offset 0.15s ease-in-out;
+      background-color 0.15s ease-in-out;
 
     &:not(.active):hover {
       scale: 1.05;
-      outline: 0.3rem dotted rgba(var(--color-text), 1);
+      background-color: rgba(var(--color-text), 1);
       outline-offset: 0.4rem;
     }
   }
@@ -208,7 +206,7 @@
     pointer-events: none;
     background-color: rgba(var(--color-background), 1);
     color: rgba(var(--color-text), 1);
-    outline: 0.3rem solid rgba(var(--color-text), 1);
+    outline: 0.5rem dashed rgba(var(--color-background), 0.5);
     outline-offset: 0.4rem;
     box-shadow: 0 0 10rem -1rem rgba(var(--color-accent), 1);
   }
