@@ -85,11 +85,14 @@
 </script>
 
 <style>
+  :root {
+    --color-accent: 42, 130, 201;
+  }
+
   /* Light as default */
   :root {
     --color-background: 255, 255, 255;
     --color-text: 0, 0, 0;
-    --color-accent: 42, 130, 201;
   }
 
   .dark {
@@ -99,13 +102,13 @@
 
   /* Dark as default */
   /* :root {
-    --color-background: black;
-    --color-text: white;
+    --color-background: 0, 0, 0;
+    --color-text: 255, 255, 255;
   }
 
   .light {
-    --color-background: white;
-    --color-text: black;
+    --color-background: 255, 255, 255;
+    --color-text: 0, 0, 0;
   } */
 
   :focus,
@@ -119,6 +122,7 @@
   }
 
   body {
+    overflow: hidden;
     font-family: system-ui;
     margin: 0;
     background-color: rgba(var(--color-background), 0.9);
@@ -174,34 +178,38 @@
   .button {
     display: block;
     border-radius: 1rem;
-    appearance: none;
     border: 0;
+    appearance: none;
     cursor: pointer;
     width: 40rem;
-    background-color: rgba(var(--color-background), 1);
-    color: rgba(var(--color-text), 1);
+    background-color: rgba(var(--color-text), 1);
+    color: rgba(var(--color-background), 1);
     padding: 4rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 4rem;
     font-family: system-ui;
     font-weight: 600;
-    border: 1px dashed rgba(var(--color-text), 0.5);
     user-select: none;
 
     transition:
       scale 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+      box-shadow 0.15s ease-in-out,
+      outline-offset 0.15s ease-in-out;
 
     &:not(.active):hover {
-      box-shadow: 0 0 10rem -1rem rgba(var(--color-accent), 0.5);
-      scale: 1.02;
+      scale: 1.05;
+      outline: 0.3rem dotted rgba(var(--color-text), 1);
+      outline-offset: 0.4rem;
     }
   }
 
   .button.active {
     pointer-events: none;
-    background-color: rgba(var(--color-text), 1);
-    color: rgba(var(--color-background), 1);
+    background-color: rgba(var(--color-background), 1);
+    color: rgba(var(--color-text), 1);
+    outline: 0.3rem solid rgba(var(--color-text), 1);
+    outline-offset: 0.4rem;
+    box-shadow: 0 0 10rem -1rem rgba(var(--color-accent), 1);
   }
 </style>
