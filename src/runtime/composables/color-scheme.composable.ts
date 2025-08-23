@@ -1,5 +1,6 @@
 import { useRuntimeConfig } from '#app';
 import { computed, ref } from 'vue';
+import type { ColorSchemeOptions } from '../../types';
 import { DEFAULT_COLOR_SCHEME } from '../defaults';
 
 export const colorSchemes = ['light', 'dark'] as const;
@@ -62,8 +63,10 @@ const availableModes = computed(() => {
 
 export function useColorScheme() {
   const config = useRuntimeConfig();
-  defaultColorSchemeMode.value = (config?.public?.colorScheme as any)?.default as ColorSchemeMode;
-  platformSystemSupport.value = (config?.public?.colorScheme as any)?.systemScheme as boolean;
+  defaultColorSchemeMode.value = (config?.public?.colorScheme as ColorSchemeOptions)
+    ?.default as ColorSchemeMode;
+  platformSystemSupport.value = (config?.public?.colorScheme as ColorSchemeOptions)
+    ?.systemScheme as boolean;
 
   return {
     // State properties
