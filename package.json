@@ -1,7 +1,7 @@
 {
   "name": "@mevbg/nuxt-color-scheme",
   "title": "Nuxt Color Scheme",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Solution for managing color schemes in Nuxt applications.",
   "keywords": [
     "nuxt color scheme",
