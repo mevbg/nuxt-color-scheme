@@ -61,17 +61,13 @@ The module is built based on the following hierarchy of priorities, arranged in 
 
 ## 📦 Setup
 
-### 1. Installation
-
 Install the module to your Nuxt application with one command:
 
 ```bash
 npx nuxi module add @mevbg/nuxt-color-scheme
 ```
 
-### 2. Declaration
-
-Add it to the modules list in `nuxt.config.ts`:
+This will download the module and add it automatically to the list of modules declared in the Nuxt configuration file, as shown in the following example:
 
 ```ts
 export default defineNuxtConfig({
