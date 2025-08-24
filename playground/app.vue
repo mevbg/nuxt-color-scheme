@@ -163,7 +163,7 @@
 
   .controllers {
     aspect-ratio: 1;
-    width: 90rem;
+    width: 50rem;
     height: auto;
     display: flex;
     flex-direction: column;
