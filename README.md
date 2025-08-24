@@ -3,8 +3,8 @@
 > A color scheme module developed for Nuxt
 
 [![npm version][npm-version-src]][npm-version-href]
+[![nuxt][nuxt-src]][nuxt-href]
 [![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
 
 ## 🎯 Overview
 
@@ -286,7 +286,7 @@ Contributions, suggestions, and improvements are welcome! Feel free to open issu
 
 [npm-version-src]: https://img.shields.io/npm/v/%40mevbg%2Fnuxt-color-scheme/latest.svg?style=flat&colorA=020420&colorB=00DC82
 [npm-version-href]: https://npmjs.com/package/@mevbg/nuxt-color-scheme
+[nuxt-src]: https://img.shields.io/badge/nuxt-%5E4.0.0-00DC82?logo=nuxt.js&colorA=020420
+[nuxt-href]: https://nuxt.com
 [license-src]: https://img.shields.io/npm/l/@mevbg/nuxt-color-scheme.svg?style=flat&colorA=020420&colorB=00DC82
 [license-href]: https://github.com/mevbg/nuxt-color-scheme/blob/main/LICENSE
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-[nuxt-href]: https://nuxt.com
